@@ -1,0 +1,2 @@
+( Dr Whatever ,  John Barry ,  EMI ,  ASD 2653 ,   stock level:  ,  2 ,   number sold today:  ,  1 )
+( Pitch ,  Tony Bevan & Neil Davidson ,  Foghorn Records ,  Fog 2 ,   stock level:  ,  1 ,   number sold today:  ,  2 )
