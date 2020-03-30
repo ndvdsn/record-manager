@@ -66,6 +66,7 @@ def update_item():
         return
     db.update(selected_item[0], title_text.get(), artist_text.get(), label_text.get(), cat_number_text.get(), barcode_text.get(), supplier_text.get(), unit_price_text.get(), retail_price_text.get(), stock_level_number.get(), date_received_text.get(), sold_today_number.get())
     populate_list()
+    messagebox.showinfo('Item updated')
 
 def clear_text():
     title_entry.delete(0, END)
@@ -109,7 +110,7 @@ def create_report():
         if sold_today_int > 0 and stock_level_int > 0:
             report.append(row)
     # formats and converts row tuple to string and writes contents of report list to a report file
-    report_out = open("restock_report.txt", "w")
+    report_out = open("restock_report.csv", "w")
     for item in report:
         formatted_output = (item[1], item[2], item[3], item[4], " stock level: ", item[9], " number sold today: ", item[11])
         string_row = str(formatted_output)
