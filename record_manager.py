@@ -1,6 +1,9 @@
 import tkinter as tk
+import csv
 from db import Database
 from tkinter import messagebox
+#new
+from tkinter import filedialog
 # import os
 
 db = Database('store.db')
@@ -11,6 +14,7 @@ class Application(tk.Frame):
         self.master = master
         master.title('Record Manager')
         master.geometry("1000x400")
+        master.configure(bg='lightyellow')
         self.create_widgets()
         self.selected_item = 0
         self.populate_list()
@@ -18,83 +22,84 @@ class Application(tk.Frame):
     def create_widgets(self):
         # artist
         self.artist_text = tk.StringVar()
-        self.artist_label = tk.Label(self.master, text="Artist", font=('bold', 14), pady=20)
+        self.artist_label = tk.Label(self.master, text="Artist", font=('bold', 14), bg='lightyellow', pady=20)
         self.artist_label.grid(row=0, column=0, sticky=tk.W)
         self.artist_entry = tk.Entry(self.master, textvariable=self.artist_text)
         self.artist_entry.grid(row=0, column=1)
         # title
         self.title_text = tk.StringVar()
-        self.title_label = tk.Label(self.master, text="Title", font=('bold', 14))
+        self.title_label = tk.Label(self.master, text="Title", font=('bold', 14), bg='lightyellow')
         self.title_label.grid(row=0, column=2, sticky=tk.W)
         self.title_entry = tk.Entry(self.master, textvariable=self.title_text)
         self.title_entry.grid(row=0, column=3)
         # label
         self.label_text = tk.StringVar()
-        self.label_label = tk.Label(self.master, text="Label", font=('bold', 14))
+        self.label_label = tk.Label(self.master, text="Label", font=('bold', 14), bg='lightyellow')
         self.label_label.grid(row=1, column=0, sticky=tk.W)
         self.label_entry = tk.Entry(self.master, textvariable=self.label_text)
         self.label_entry.grid(row=1, column=1)
         # cat_number
         self.cat_number_text = tk.StringVar()
-        self.cat_number_label = tk.Label(self.master, text="Cat #", font=('bold', 14))
+        self.cat_number_label = tk.Label(self.master, text="Cat #", font=('bold', 14), bg='lightyellow')
         self.cat_number_label.grid(row=1, column=2, sticky=tk.W)
         self.cat_number_entry = tk.Entry(self.master, textvariable=self.cat_number_text)
         self.cat_number_entry.grid(row=1, column=3)
         # barcode
         self.barcode_text = tk.StringVar()
-        self.barcode_label = tk.Label(self.master, text="Barcode", font=('bold', 14))
+        self.barcode_label = tk.Label(self.master, text="Barcode", font=('bold', 14), bg='lightyellow')
         self.barcode_label.grid(row=1, column=4, sticky=tk.W)
         self.barcode_entry = tk.Entry(self.master, textvariable=self.barcode_text)
         self.barcode_entry.grid(row=1, column=5)
         # supplier
         self.supplier_text = tk.StringVar()
-        self.supplier_label = tk.Label(self.master, text="Supplier", font=('bold', 14))
+        self.supplier_label = tk.Label(self.master, text="Supplier", font=('bold', 14), bg='lightyellow')
         self.supplier_label.grid(row=2, column=0, sticky=tk.W)
         self.supplier_entry = tk.Entry(self.master, textvariable=self.supplier_text)
         self.supplier_entry.grid(row=2, column=1)
         # unit_price
         self.unit_price_text = tk.StringVar()
-        self.unit_price_label = tk.Label(self.master, text="Unit Price", font=('bold', 14))
+        self.unit_price_label = tk.Label(self.master, text="Unit Price", font=('bold', 14), bg='lightyellow')
         self.unit_price_label.grid(row=2, column=2, sticky=tk.W)
         self.unit_price_entry = tk.Entry(self.master, textvariable=self.unit_price_text)
         self.unit_price_entry.grid(row=2, column=3)
         # retail_price
         self.retail_price_text = tk.StringVar()
-        self.retail_price_label = tk.Label(self.master, text="Retail Price", font=('bold', 14))
+        self.retail_price_label = tk.Label(self.master, text="Retail Price", font=('bold', 14), bg='lightyellow')
         self.retail_price_label.grid(row=2, column=4, sticky=tk.W)
         self.retail_price_entry = tk.Entry(self.master, textvariable=self.retail_price_text)
         self.retail_price_entry.grid(row=2, column=5)
         # stock_level
         self.stock_level_number = tk.IntVar()
-        self.stock_level_label = tk.Label(self.master, text="Stock Level", font=('bold', 14))
+        self.stock_level_label = tk.Label(self.master, text="Stock Level", font=('bold', 14), bg='lightyellow')
         self.stock_level_label.grid(row=3, column=0, sticky=tk.W)
         self.stock_level_entry = tk.Entry(self.master, textvariable=self.stock_level_number)
         self.stock_level_entry.grid(row=3, column=1)
         # date_received
         self.date_received_text = tk.StringVar()
-        self.date_received_label = tk.Label(self.master, text="Date Received", font=('bold', 14))
+        self.date_received_label = tk.Label(self.master, text="Date Received", font=('bold', 14), bg='lightyellow')
         self.date_received_label.grid(row=3, column=2, sticky=tk.W)
         self.date_received_entry = tk.Entry(self.master, textvariable=self.date_received_text)
         self.date_received_entry.grid(row=3, column=3)
         # sold_today
         self.sold_today_number = tk.IntVar()
-        self.sold_today_label = tk.Label(self.master, text="Sold Today", font=('bold', 14))
+        self.sold_today_label = tk.Label(self.master, text="Sold Today", font=('bold', 14), bg='lightyellow')
         self.sold_today_label.grid(row=3, column=4, sticky=tk.W)
         self.sold_today_entry = tk.Entry(self.master, textvariable=self.sold_today_number)
         self.sold_today_entry.grid(row=3, column=5)
 
         # records list
         self.record_list = tk.Listbox(self.master, height=8, width=80, border=0)
-        self.record_list.grid(row=5, column=0, columnspan=5, rowspan=6, pady=20, padx=20)
+        self.record_list.grid(row=6, column=0, columnspan=5, rowspan=6, pady=20, padx=20)
         # create scrollbar
         self.scrollbar = tk.Scrollbar(self.master)
-        self.scrollbar.grid(row=5, column=6)
+        self.scrollbar.grid(row=6, column=6)
 
         # set scroll to Listbox
         self.record_list.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.configure(command=self.record_list.yview)
 
         self.record_list.bind('<<ListboxSelect>>', self.select_item)
+
 
         # buttons
         self.add_btn = tk.Button(self.master, text='Add Item', width=12, command=self.add_item)
@@ -115,12 +120,27 @@ class Application(tk.Frame):
         self.create_report_btn = tk.Button(self.master, text='Create Report', width=12, command=self.create_report)
         self.create_report_btn.grid(row=4, column=5, pady=20)
 
+        self.upload_btn = tk.Button(self.master, text='Upload CSV', width=12, command=self.UploadAction)
+        self.upload_btn.grid(row=5, column=0, pady=20)
+
 
 
     def populate_list(self):
         self.record_list.delete(0, tk.END)
         for row in db.fetch():
             self.record_list.insert(tk.END, row)
+
+    # uploads CSV file to db
+    # add error correction
+    def UploadAction(self, event=None):
+        root.update()
+        filename = filedialog.askopenfilename()
+        with open(filename) as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                db.insert(row['artist'], row['title'], row['label'], row['catno'], "0123456789101", "MANUAL", 0.00, row['price'], 0, row['listed'], 0)
+        csvfile.close()
+        self.populate_list()
 
 
     def add_item(self):

@@ -28,6 +28,3 @@ class Database:
         self.conn.close()
 
 # db = Database('store.db')
-# db.insert("Dr Whatever","John Barry", "EMI", "ASD 2653", "None", "Cargo", "12.00", "18.00", 5, "24 Nov 19", 0)
-# db.insert("Mr F","Gob", "Faceblock", "X33", "23845029834705", "Cargo", "12.00", "18.00", 4, "24 Nov 19", 0)
-# db.insert("Pitch","Tony Bevan & Neil Davidson", "Foghorn Records", "Fog 2", "None", "SOR", "10.00", "15.00", 5, "10 Oct 19", 0)
